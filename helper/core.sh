@@ -1,9 +1,11 @@
 # General
+step "Installing General";
 sed -i "s/#\$nrconf{kernelhints} = -1;/\$nrconf{kernelhints} = -1;/g" /etc/needrestart/needrestart.conf;
 sed -i "s/#\$nrconf{restart} = 'i';/\$nrconf{restart} = 'a';/g" /etc/needrestart/needrestart.conf;
 sudo apt update -y && sudo apt upgrade -y;
 
 # Apache
+step "Installing Apache";
 sudo apt install apache2 -y;
 sudo systemctl start apache2;
 sudo systemctl enable apache2;
@@ -15,6 +17,7 @@ rm -rf /var/www/html;
 systemctl restart apache2;
 
 # Php
+step "Installing PHP";
 sudo apt install software-properties-common -y;
 sudo add-apt-repository ppa:ondrej/php -y;
 sudo apt install php -y;
@@ -33,6 +36,7 @@ sudo apt install php8.3-imagick -y;
 sudo apt install ffmpeg -y;
 
 # Mongo
+step "Installing Mongo";
 wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -;
 curl -fsSL https://pgp.mongodb.com/server-7.0.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor --yes;
 echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list;
@@ -42,7 +46,9 @@ sudo systemctl restart mongod.service;
 sudo systemctl enable mongod.service;
 
 # LetsEncrypt
+step "Installing LetsEncrypt";
 sudo apt install certbot python3-certbot-apache -y;
 
 # Supervisor
+step "Installing Supervisor";
 sudo apt install supervisor -y;

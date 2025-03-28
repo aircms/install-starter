@@ -1,3 +1,6 @@
+echo "AirCms installer"
+
+. "helper/func.sh";
 . "helper/input.sh";
 . "helper/core.sh";
 . "helper/deploy.sh";
